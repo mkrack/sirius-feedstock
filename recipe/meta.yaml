@@ -36,7 +36,6 @@ requirements:
   host:
     - {{ mpi }}
     - costa
-    - dftd4
     - gsl
     - hdf5
     - libblas
@@ -49,7 +48,6 @@ requirements:
   run:
     - {{ mpi }}
     - costa
-    - dftd4
     - gsl
     - hdf5
     - libblas
