@@ -1,52 +1,59 @@
 {% set name = "sirius" %}
-{% set version = "7.5.0" %}
+{% set version = "7.11.1" %}
+
+{% set build = 0 %}
+
+{% set mpi_prefix = "mpi_" + mpi %}
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://github.com/electronic-structure/SIRIUS/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: c583f88ffc02e9acac24e786bc35c7c32066882d2f70a1e0c14b5780b510365d
-  patches:
-    - fix_osx_compilation.patch  # [osx]
-    - fix_osx_cmake.patch  # [osx]
+  sha256: ce77dd168b2c3ef4a89cc2d6b163cb00b3d8b9d4b0652bc9de187dc7e0e74d77
 
 build:
-  number: 0
+  number: {{ build }}
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
   skip: true  # [win]
   run_exports:
-    - {{ pin_subpackage('sirius', max_pin='x') }}
+    - {{ pin_subpackage("sirius", max_pin="x") }}
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - {{ compiler('fortran') }}
-    - make
-    - cmake >=3.14.0
-    - libgomp      # [linux]
-    - llvm-openmp  # [osx]
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("fortran") }}
+    - {{ mpi }}
+    - cmake >=3.25
+    - ninja >=1.13
+    - pkg-config
   host:
     - {{ mpi }}
+    - costa
+    - gsl
+    - hdf5
     - libblas
     - liblapack
-    - gsl
     - libxc
-    - spglib
-    - hdf5
-    - spfft
-    - costa
-    - spla
-    - boost-cpp    # [osx]
-    - pkg-config
     - scalapack
+    - spfft
+    - spla
+    - spglib
   run:
     - {{ mpi }}
+    - costa
+    - gsl
+    - hdf5
+    - libblas
+    - liblapack
+    - libxc
     - scalapack
     - spfft
     - spla
-    - costa
-    - boost-cpp    # [osx]
+    - spglib
 
 test:
   commands:
@@ -59,7 +66,11 @@ about:
   license_file: LICENSE
   summary: Domain specific library for electronic structure calculations
   description: |
-    SIRIUS is a domain specific library for electronic structure calculations. It implements pseudopotential plane wave (PP-PW) and full potential linearized augmented plane wave (FP-LAPW) methods and is designed for GPU acceleration of popular community codes such as Exciting, Elk and Quantum ESPRESSO.
+    SIRIUS is a domain specific library for electronic structure calculations.
+    It implements pseudopotential plane wave (PP-PW) and full potential
+    linearized augmented plane wave (FP-LAPW) methods and is designed for GPU
+    acceleration of popular community codes such as Exciting, Elk and Quantum
+    ESPRESSO.
   doc_url: https://electronic-structure.github.io/SIRIUS-doc/
   dev_url: https://github.com/electronic-structure/SIRIUS
 
