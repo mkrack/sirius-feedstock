@@ -196,6 +196,7 @@ Feedstock Maintainers
 
 * [@AdhocMan](https://github.com/AdhocMan/)
 * [@ltalirz](https://github.com/ltalirz/)
+* [@mkrack](https://github.com/mkrack/)
 * [@simonpintarelli](https://github.com/simonpintarelli/)
 * [@toxa81](https://github.com/toxa81/)
 
