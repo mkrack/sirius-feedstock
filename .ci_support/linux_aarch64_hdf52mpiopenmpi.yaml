@@ -25,7 +25,7 @@ fortran_compiler_version:
 gsl:
 - '2.7'
 hdf5:
-- 1.14.6
+- '2'
 mpi:
 - openmpi
 mpich:
@@ -35,7 +35,7 @@ openmpi:
 pugixml:
 - '1.15'
 target_platform:
-- linux-64
+- linux-aarch64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

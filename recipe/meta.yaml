@@ -1,7 +1,7 @@
 {% set name = "sirius" %}
 {% set version = "7.11.1" %}
 
-{% set build = 3 %}
+{% set build = 4 %}
 
 {% set mpi_prefix = "mpi_" + mpi %}
 
@@ -32,32 +32,35 @@ requirements:
     - pkg-config
   host:
     - {{ mpi }}
-    - costa
+    - _openmp_mutex
+    - "costa * {{ mpi_prefix }}_*" 
+    - fmt
     - gsl
     - hdf5
-    - libblas
-    - liblapack
-    - libxc
+#   - "libvdwxc * {{ mpi_prefix }}_*" 
+    - libxc-c
+    - "openblas * *openmp_*"
+    - pugixml
     - scalapack
-    - spfft
-    - spla
+    - "spfft * {{ mpi_prefix }}_*" 
+    - "spla * {{ mpi_prefix }}_*" 
     - spglib
   run:
     - {{ mpi }}
-    - costa
+    - _openmp_mutex
+    - fmt
     - gsl
-    - hdf5
-    - libblas
-    - liblapack
-    - libxc
+    - libxc-c
+    - "openblas * *openmp_*"
     - scalapack
-    - spfft
-    - spla
-    - spglib
+    - "spfft * {{ mpi_prefix }}_*" 
+    - "spla * {{ mpi_prefix }}_*" 
 
 test:
   commands:
     - test -f "${PREFIX}/lib/libsirius${SHLIB_EXT}"
+    - atom --help
+    - hydrogen --help
 
 about:
   home: https://github.com/electronic-structure/SIRIUS

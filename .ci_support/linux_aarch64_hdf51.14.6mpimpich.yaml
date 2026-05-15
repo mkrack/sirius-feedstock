@@ -27,7 +27,7 @@ gsl:
 hdf5:
 - 1.14.6
 mpi:
-- openmpi
+- mpich
 mpich:
 - '5'
 openmpi:
@@ -35,7 +35,7 @@ openmpi:
 pugixml:
 - '1.15'
 target_platform:
-- linux-64
+- linux-aarch64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
