@@ -28,6 +28,7 @@ requirements:
     - {{ compiler("fortran") }}
     - {{ mpi }}
     - cmake >=3.25
+    - doxygen
     - ninja >=1.13
     - pkg-config
   host:
