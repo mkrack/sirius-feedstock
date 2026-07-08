@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/sirius-feedstoc
 
 Home: https://github.com/electronic-structure/SIRIUS
 
-Package license: BSD-2-Clause
+Package license: BSD-3-Clause
 
 Summary: Domain specific library for electronic structure calculations
 
@@ -18,7 +18,6 @@ It implements pseudopotential plane wave (PP-PW) and full potential
 linearized augmented plane wave (FP-LAPW) methods and is designed for GPU
 acceleration of popular community codes such as Exciting, Elk and Quantum
 ESPRESSO.
-
 
 Current build status
 ====================
@@ -202,7 +201,6 @@ Feedstock Maintainers
 =====================
 
 * [@AdhocMan](https://github.com/AdhocMan/)
-* [@ltalirz](https://github.com/ltalirz/)
 * [@mkrack](https://github.com/mkrack/)
 * [@simonpintarelli](https://github.com/simonpintarelli/)
 * [@toxa81](https://github.com/toxa81/)

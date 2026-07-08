@@ -1,0 +1,90 @@
+schema_version: 1
+
+context:
+  version: 7.11.1
+  mpi_prefix: "mpi_${{ mpi }}"
+
+package:
+  name: sirius
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/electronic-structure/SIRIUS/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: ce77dd168b2c3ef4a89cc2d6b163cb00b3d8b9d4b0652bc9de187dc7e0e74d77
+
+build:
+  number: 6
+  string: mpi_${{ mpi }}_h${{ hash }}_${{ build_number }}
+  skip:
+    - win
+
+requirements:
+  build:
+    - ${{ compiler("c") }}
+    - ${{ compiler("cxx") }}
+    - ${{ compiler("fortran") }}
+    - ${{ mpi }}
+    - cmake >=3.25
+    - doxygen
+    - ninja >=1.13
+    - pkg-config
+  host:
+    - ${{ mpi }}
+    - _openmp_mutex
+    - "costa * ${{ mpi_prefix }}_*"
+    - fmt
+    - gsl
+    - hdf5
+    #  - "libvdwxc * ${{ mpi_prefix }}_*"
+    - libxc-c
+    - "openblas * *openmp_*"
+    - pugixml
+    - scalapack
+    - "spfft * ${{ mpi_prefix }}_*"
+    - "spla * ${{ mpi_prefix }}_*"
+    - spglib
+    - zlib
+  run:
+    - ${{ mpi }}
+    - _openmp_mutex
+    - "costa * ${{ mpi_prefix }}_*"
+    - fmt
+    - gsl
+    - libxc-c
+    - "openblas * *openmp_*"
+    - scalapack
+    - "spfft * ${{ mpi_prefix }}_*"
+    - "spla * ${{ mpi_prefix }}_*"
+
+tests:
+  - package_contents:
+      lib:
+        - libsirius
+        - libsirius_cxx
+  - script:
+      - if: target_platform == build_platform
+        then:
+          - atom --help
+          - hydrogen --help
+
+about:
+  homepage: https://github.com/electronic-structure/SIRIUS
+  license: BSD-3-Clause
+  license_file: LICENSE
+  license_family: BSD
+  summary: Domain specific library for electronic structure calculations
+  description: |
+    SIRIUS is a domain specific library for electronic structure calculations.
+    It implements pseudopotential plane wave (PP-PW) and full potential
+    linearized augmented plane wave (FP-LAPW) methods and is designed for GPU
+    acceleration of popular community codes such as Exciting, Elk and Quantum
+    ESPRESSO.
+  repository: https://github.com/electronic-structure/SIRIUS
+  documentation: https://electronic-structure.github.io/SIRIUS-doc/
+
+extra:
+  recipe-maintainers:
+    - toxa81
+    - simonpintarelli
+    - AdhocMan
+    - mkrack
